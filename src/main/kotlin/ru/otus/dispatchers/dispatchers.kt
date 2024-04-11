@@ -20,10 +20,10 @@ import kotlin.system.measureTimeMillis
 fun main() {
     runBlocking {
         println(printThreadName("launch"))
-        withContext(Dispatchers.Default) {
-            println(printThreadName("withContext(Dispatchers.Default 1)"))
+        withContext(Dispatchers.Unconfined) {
+            println(printThreadName("withContext(Dispatchers.Unconfined 1)"))
             delay(1000L)
-            println(printThreadName("withContext(Dispatchers.Default 2)"))
+            println(printThreadName("withContext(Dispatchers.Unconfined 2)"))
         }
         println(printThreadName("after withContext(Dispatchers.Default)"))
     }
