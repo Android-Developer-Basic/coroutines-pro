@@ -8,14 +8,16 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlin.system.measureTimeMillis
 
 fun main() = runBlocking {
     val job = launch(Dispatchers.IO) {
-        repeat(1000) { i ->
-            println("job: I'm sleeping $i ...")
+        var i = 0
+        while(isActive) {
+            println("job: I'm sleeping ${++i} ...")
             Thread.sleep(500L)
         }
     }
