@@ -18,14 +18,14 @@ import kotlin.system.measureTimeMillis
 
 fun main() {
     runBlocking {
-        launch {
-            try {
+        try {
+            launch {
                 withContext(Dispatchers.IO) {
                     badFun()
                 }
-            } catch (e: Exception) {
-                println("Caught $e")
             }
+        } catch (e: Exception) {
+            println("Caught $e")
         }
     }
 }
