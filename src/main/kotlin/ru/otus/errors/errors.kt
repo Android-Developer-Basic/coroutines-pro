@@ -19,17 +19,16 @@ import kotlin.system.measureTimeMillis
 
 fun main() {
     runBlocking {
-        try {
-            coroutineScope {
-                launch {
-                    withContext(Dispatchers.IO) {
-                        badFun()
-                    }
+        val res = async {
+            withContext(Dispatchers.IO) {
+                try {
+                    badFun()
+                }catch (e: Exception) {
+                    println("Caught $e")
                 }
             }
-        } catch (e: Exception) {
-            println("Caught $e")
         }
+        res.await()
     }
 }
 
