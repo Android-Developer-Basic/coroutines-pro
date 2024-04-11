@@ -7,9 +7,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking {
-    CoroutineScope(Dispatchers.Default).launch {
+    val job = CoroutineScope(Dispatchers.Default).launch {
         delay(500L)
         println("world!")
     }
     println("Hello")
+    job.join()
 }
