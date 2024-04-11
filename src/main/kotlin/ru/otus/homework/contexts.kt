@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking {
-    val job = Job()
+    val job = SupervisorJob()
     val scope = CoroutineScope(Dispatchers.Default + job)
     scope.launch {
         delay(300L)
