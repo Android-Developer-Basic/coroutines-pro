@@ -15,20 +15,21 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
+import kotlin.coroutines.coroutineContext
 import kotlin.system.measureTimeMillis
 
 fun main() {
     runBlocking {
-        val res = async {
-            withContext(Dispatchers.IO) {
-                try {
+        try {
+            coroutineScope {
+                val res = async {
                     badFun()
-                }catch (e: Exception) {
-                    println("Caught $e")
                 }
+                res.await()
             }
+        } catch (e: Exception) {
+            println("Caught $e")
         }
-        res.await()
     }
 }
 
