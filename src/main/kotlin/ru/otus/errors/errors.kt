@@ -8,6 +8,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 import kotlinx.coroutines.cancelAndJoin
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -19,9 +20,11 @@ import kotlin.system.measureTimeMillis
 fun main() {
     runBlocking {
         try {
-            launch {
-                withContext(Dispatchers.IO) {
-                    badFun()
+            coroutineScope {
+                launch {
+                    withContext(Dispatchers.IO) {
+                        badFun()
+                    }
                 }
             }
         } catch (e: Exception) {
