@@ -23,9 +23,11 @@ fun main() {
         println("Finally caught $exception")
     }
     runBlocking {
-        launch(handler) {
+        val scope = CoroutineScope(handler)
+        val job = scope.launch(handler) {
             badFun()
         }
+        job.join()
     }
 }
 
