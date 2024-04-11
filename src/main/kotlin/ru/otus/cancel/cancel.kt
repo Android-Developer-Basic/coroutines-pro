@@ -13,10 +13,10 @@ import kotlinx.coroutines.runBlocking
 import kotlin.system.measureTimeMillis
 
 fun main() = runBlocking {
-    val job = launch {
+    val job = launch(Dispatchers.IO) {
         repeat(1000) { i ->
             println("job: I'm sleeping $i ...")
-            delay(500L)
+            Thread.sleep(500L)
         }
     }
     delay(1300L)
