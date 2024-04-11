@@ -13,23 +13,17 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import kotlin.system.measureTimeMillis
 
 @OptIn(ExperimentalCoroutinesApi::class)
 fun main() {
     runBlocking {
-        launch {
-            println(printThreadName("launch"))
+        println(printThreadName("launch"))
+        withContext(Dispatchers.Default) {
+            println(printThreadName("withContext(Dispatchers.Default)"))
         }
-        launch(Dispatchers.Default) {
-            println(printThreadName("launch(Dispatchers.Default)"))
-        }
-        launch(Dispatchers.IO) {
-            println(printThreadName("launch(Dispatchers.IO)"))
-        }
-        launch(newSingleThreadContext("MyOwnThread")) {
-            println(printThreadName("launch(Thread)"))
-        }
+        println(printThreadName("after withContext(Dispatchers.Default)"))
     }
 }
 
