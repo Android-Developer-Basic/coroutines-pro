@@ -8,15 +8,23 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlin.system.measureTimeMillis
 
 fun main() = runBlocking {
-    launch {
-        delay(1000L)
-        println("launch1: complete!")
+    val time = measureTimeMillis {
+        val one = doSomethingUsefulOne()
+        val two = doSomethingUsefulTwo()
+        println("The answer is ${one + two}")
     }
-    launch {
-        delay(300L)
-        println("launch2: done!")
-    }
-    println("blocking waits for job to finish!")
+    println("Completed in $time ms")
+}
+
+suspend fun doSomethingUsefulOne(): Int {
+    delay(1000L)
+    return 13
+}
+
+suspend fun doSomethingUsefulTwo(): Int {
+    delay(1000L)
+    return 29
 }
