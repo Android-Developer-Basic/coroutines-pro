@@ -4,6 +4,12 @@ fun simpleFunctionMock(continuation: MyContinuation<Unit>): Any {
     val cont = continuation as? SimpleFunctionMockContinuation ?: SimpleFunctionMockContinuation(continuation)
     if (0 == cont.state) {
         println("Point 1")
+        cont.state = 1
+        if (SUSPENDED == delayFunctionMock(1000, cont)) {
+            return SUSPENDED
+        }
+    }
+    if (1 == cont.state) {
         println("Point 2")
         return Unit
     }

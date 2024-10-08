@@ -14,5 +14,6 @@ fun main() {
 
 suspend fun simpleFunction() {
     println("Point 1")
+    delay(1000)
     println("Point 2")
 }
