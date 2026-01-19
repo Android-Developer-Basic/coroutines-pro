@@ -11,7 +11,10 @@ import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking {
     val job = SupervisorJob()
-    val scope = CoroutineScope(Dispatchers.Default + job)
+    val handler = CoroutineExceptionHandler { context, exception ->
+        println("Caught $exception")
+    }
+    val scope = CoroutineScope(Dispatchers.Default + job + handler)
     scope.launch {
         delay(300L)
         throw Exception("launch1: error!")
